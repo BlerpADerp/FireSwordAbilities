@@ -188,5 +188,21 @@ if craft_fire_sword(player_inventory):
 
     # Update display
     pygame.display.flip()
-
+{
+  "minecraft:item": {
+    "description": {
+      "identifier": "custom:fire_sword",
+      "category": "Equipment"
+    },
+    "components": {
+      "minecraft:icon": "fire_sword",
+      "minecraft:damage": 0,
+      "minecraft:render_offsets": "tools"
+   "fire_sword": {
+    "textures": "textures/items/texture (6)"
+}
+"fire_sword": {
+  "textures": "textures/items/fire_sword",
+  "geometry": "geometry.fire_sword"
+}
 # Quit Pygame
