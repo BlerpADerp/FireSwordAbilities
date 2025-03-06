@@ -114,6 +114,78 @@ while running:
     # Draw player with texture
     player.draw()
 
+    class FireSword:
+    def __init__(self):
+        self.fire_column_cooldown = 5  # 5 seconds
+        self.fire_rain_cooldown = 30  # 30 seconds
+        self.lava_rise_cooldown = 90  # 1 1/2 minutes
+        self.last_fire_column_time = 0
+        self.last_fire_rain_time = 0
+        self.last_lava_rise_time = 0
+        self.fire_bar = 100  # Fire bar percentage (100%)
+    
+    def hit_player(self, target_player):
+        if self.fire_bar > 0:  # Sword can only ignite if fire bar has energy
+            target_player.ignite(3)  # Ignite for 3 seconds
+            self.fire_bar -= 10  # Drain fire bar
+            print(f"Hit {target_player.name}, they are on fire for 3 seconds!")
+        else:
+            print("Not enough fire energy to ignite the target.")
+class Player:
+    def __init__(self, name, position):
+        self.name = name
+        self.position = position
+        self.is_on_fire = False
+
+    def ignite(self, duration):
+        self.is_on_fire = True
+        print(f"{self.name} is on fire!")
+        pygame.time.set_timer(pygame.USEREVENT, duration * 1000)  # Fire duration timer
+def craft_fire_sword(inventory):
+    recipe = {
+        'lava_bucket': 1,
+        'iron_sword': 2,
+        'flint_and_steel': 2,
+        'water_potion': 2
+    }
+
+    # Check if inventory matches recipe
+    for item, quantity in recipe.items():
+        if inventory.get(item, 0) < quantity:
+            print(f"Missing {item} to craft the Fire Sword.")
+            return False
+
+    print("Fire Sword crafted successfully!")
+    return True
+    class FireSword:
+    def __init__(self):
+        # Other attributes...
+        self.fire_bar = 100  # Fire bar starts at 100%
+
+    def recharge_in_fire(self):
+        if self.fire_bar < 100:
+            self.fire_bar = 100
+            print("Fire Sword fully recharged in fire!")
+            # Example inventory
+player_inventory = {
+    'lava_bucket': 1,
+    'iron_sword': 2,
+    'flint_and_steel': 2,
+    'water_potion': 2
+}
+
+# Check crafting
+if craft_fire_sword(player_inventory):
+    fire_sword = FireSword()
+    player = Player("Hero", (100, 100))
+    target = Player("Villain", (200, 200))
+
+    # Simulate hitting target
+    fire_sword.hit_player(target)
+
+    # Simulate recharging in fire
+    fire_sword.recharge_in_fire()
+
     # Update display
     pygame.display.flip()
 
